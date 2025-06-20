@@ -1,0 +1,16 @@
+files/*
+!files/README.md
+
+*.log
+*.tmp
+*.bak
+*.swp
+
+**/.DS_Store
+**/Thumbs.db
+
+.vscode/
+.idea/
+*.code-workspace
+
+.env

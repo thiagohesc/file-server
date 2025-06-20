@@ -1,0 +1,21 @@
+services:
+  fileserver:
+    image: nginx:alpine
+    container_name: fileserver
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.grafana.entrypoints=websecure"
+      - "traefik.http.routers.grafana.tls=true"
+      - "traefik.http.routers.grafana.tls.certresolver=le"
+      - "traefik.http.services.grafana.loadbalancer.server.port=80"
+    volumes:
+      - ${FILES_PATH}:/usr/share/nginx/html:ro
+      - ./nginx_conf/default.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - rpg-net
+
+networks:
+  rpg-net:
+    external: true
